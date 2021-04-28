@@ -1,0 +1,6 @@
+1618984201.388373;new;((10, 10), 140313529826432)
+{'time': '1618984201.4753861', 'context': '<module>,15', 'function_name': 'logical_and,reduce', 'input_ids': '((10, 10), 140313529826432)', 'output_ids': 'False', 'args': 'None'}
+1618984201.470597;relation;((10, 10), 140313502453424);((10, 10), 140313530186208)
+{'time': '1618984201.470697', 'context': '<module>,15', 'function_name': 'minimum,reduce', 'input_ids': '((10, 10), 140313530186208)', 'output_ids': '1.0', 'args': 'None'}
+1618984201.3882508;new;((10, 10), 140313502453424)
+{'time': '1618984201.388384', 'context': '<module>,15', 'function_name': 'isnan,__call__', 'input_ids': '((10, 10), 140313502453424)', 'output_ids': '((10, 10), 140313529826432)', 'args': 'None'}

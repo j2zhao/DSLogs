@@ -1,0 +1,8 @@
+1619022362.971046;new;((1,), 140338888593184)
+{'time': '1619022363.0394828', 'context': '<module>,12', 'function_name': 'true_divide,__call__', 'input_ids': '((1,), 140338888593184),100', 'output_ids': 'None', 'args': 'None'}
+1619022363.045131;new;((100,), 140338888593184)
+{'time': '1619022363.045483', 'context': '<module>,12', 'function_name': 'multiply,__call__', 'input_ids': '((100,), 140338888593184),((100,), 140338888593184)', 'output_ids': 'None', 'args': 'None'}
+1619022362.970828;new;((100,), 140338886488240)
+{'time': '1619022362.971061', 'context': '<module>,12', 'function_name': 'add,reduce', 'input_ids': '((100,), 140338886488240)', 'output_ids': '((1,), 140338888593184)', 'args': 'None'}
+{'time': '1619022363.045151', 'context': '<module>,12', 'function_name': 'subtract,__call__', 'input_ids': "((100,), 140338886488240),((1,), '140338884984704_vxm4k4Q6JI')", 'output_ids': '((100,), 140338888593184)', 'args': 'None'}
+1619022362.970907;new;((100,), 140338888592960)
