@@ -8,11 +8,12 @@ from logged_array import LoggedNDArray
 
 
 # # trig functions -> unwrap -> hmm not
-# y = LoggedNDArray(np.ones((10, 10, 10))*(np.pi/2))
+y = LoggedNDArray(np.ones((10, 10, 10))*(np.pi/2))
 
 # a = LoggedNDArray(np.ones((10, 10, 10))*4)
 # b = LoggedNDArray(np.ones((10, 10, 10))*3)
-# z = np.sin(y)
+z = y.nonzero()
+z = y.T
 # w = np.cos(y)
 # np.arctan2(a, b)
 # np.hypot(a, b)
@@ -36,12 +37,12 @@ from logged_array import LoggedNDArray
 
 # c = np.prod(a)
 
-arr_1 = LoggedNDArray(np.ones((10,)))
-arr_2 = LoggedNDArray(np.ones((10,)))
-#arr = np.ones((10, 10))
+# arr_1 = LoggedNDArray(np.ones((10,)))
+# arr_2 = LoggedNDArray(np.ones((10,)))
+# #arr = np.ones((10, 10))
 
-#np.amin(arr) #minimum functions -> don't know which one
+# #np.amin(arr) #minimum functions -> don't know which one
 
-#np.nanstd(arr) # really look at this
+# #np.nanstd(arr) # really look at this
 
-np.correlate(arr_1, arr_2)
+# np.correlate(arr_1, arr_2)

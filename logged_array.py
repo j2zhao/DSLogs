@@ -83,7 +83,7 @@ def _log_kwargs(arg):
     else:   
         return (key, (id(val), val))
 
-def log_function(func):
+def log_arr_function(func):
     @functools.wraps(func)
     def function(ref, *args, **kwargs):
         input_ids = [str(ref.get_id())]
@@ -107,6 +107,30 @@ def log_function(func):
         return output
     return function
 
+def log_function(func):
+    @functools.wraps(func)
+    def function(*args, **kwargs):
+        input_ids = []
+        for arg in args:
+            input_ids.append(utils.coll_function(_log_args, arg))
+        # if func.__name__ == '__array_function__':
+        #     print(input_ids)
+        for arg in kwargs:
+            input_ids.append(utils.coll_function(_log_kwargs, [arg, kwargs[arg]]))
+        
+        output = func(*args, **kwargs)
+        # do all outputs
+        
+        output_ids = utils.coll_function(_log_args, output)
+        if isinstance(output, tuple):
+            output_ids = list(output_ids)    
+        else:
+            output_ids = [output_ids]       
+        
+        file = open(file_name, 'a+')
+        write_log(file, str(time.time()), func.__name__, input_ids = input_ids, output_ids=output_ids)
+        return output
+    return function
 
 class LoggedNDArray(np.ndarray):
 
@@ -127,43 +151,43 @@ class LoggedNDArray(np.ndarray):
     def T(self) -> typing.Any:
         return super().T
 
-    @log_function
+    @log_arr_function
     def fill(self,  *args, **kwargs) -> typing.Any:
         return super().fill( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def item(self, *args, **kwargs) -> typing.Any:
         return super().item( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def itemset(self, *args, **kwargs) -> typing.Any:
         return super().itemset( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def reshape(self, *args, **kwargs) -> typing.Any:
         return super().reshape(*args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def resize(self, *args, **kwargs) -> typing.Any:
         return super().resize( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def transpose(self, *args, **kwargs) -> typing.Any:
         return super().transpose( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def swapaxes(self, *args, **kwargs) -> typing.Any:
         return super().swapaxes(*args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def flatten(self,  *args, **kwargs) -> typing.Any:
         return super().flatten( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def ravel(self,  *args, **kwargs) -> typing.Any:
         return super().ravel( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def squeeze(self,  *args, **kwargs) -> typing.Any:
         return super().squeeze( *args, **kwargs)
 
@@ -191,116 +215,116 @@ class LoggedNDArray(np.ndarray):
         write_child_log(self.file, time.time(), str(self.get_id()), str(self.result.get_id()))
         return result
 
-    @log_function
+    @log_arr_function
     def take(self,  *args, **kwargs) -> typing.Any:
         return super().take( *args, **kwargs)
         
         
-    @log_function
+    @log_arr_function
     def put(self, *args, **kwargs) -> typing.Any:
         return super().put( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def repeat(self,  *args, **kwargs) -> typing.Any:
         return super().repeat( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def choose(self, *args, **kwargs) -> typing.Any:
         return super().choose( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def sort(self, *args, **kwargs) -> typing.Any:
         return super().sort(*args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def argsort(self,  *args, **kwargs) -> typing.Any:
         return super().argsort( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def partition(self,  *args, **kwargs) -> typing.Any:
         return super().partition( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def argpartition(self,  *args, **kwargs) -> typing.Any:
         return super().argpartition(*args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def searchsorted(self,  *args, **kwargs) -> typing.Any:
         return super().searchsorted(*args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def nonzero(self) -> typing.Any:
         return super().nonzero()
 
-    @log_function
+    @log_arr_function
     def compress(self, *args, **kwargs) -> typing.Any:
         return super().compress( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def diagonal(self, *args, **kwargs) -> typing.Any:
         return super().diagonal( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def max(self,  *args, **kwargs) -> typing.Any:
         return super().max( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def argmax(self,  *args, **kwargs) -> typing.Any:
         return super().argmax( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def min(self, *args, **kwargs) -> typing.Any:
         return super().min( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def argmin(self,  *args, **kwargs) -> typing.Any:
         return super().argmin( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def ptp(axis=None,  *args, **kwargs) -> typing.Any:
         return super().ptp( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def clip(self, *args, **kwargs) -> typing.Any:
         return super().clip( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def trace(self,  *args, **kwargs) -> typing.Any:
         return super().trace( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def sum(self,  *args, **kwargs)-> typing.Any:
         return super().sum( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def cumsum(self,  *args, **kwargs) -> typing.Any:
         return super().cumsum( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def mean(self,  *args, **kwargs) -> typing.Any:
         return super().mean( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def var(self,  *args, **kwargs) -> typing.Any:
         return super().var( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def std(self,  *args, **kwargs) -> typing.Any:
         return super().std( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def prod(self,  *args, **kwargs) -> typing.Any:
         return super().prod( *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def cumprod(self,  *args, **kwargs) -> typing.Any:
         return super().cumprod( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def __getitem__(self,  *args, **kwargs) -> typing.Any:
         return super().__getitem__( *args, **kwargs)
 
-    @log_function
+    @log_arr_function
     def __setitem__(self,  *args, **kwargs) -> None:
         return super().__setitem__( *args, **kwargs)
 
@@ -347,11 +371,11 @@ class LoggedNDArray(np.ndarray):
     #     return output
 
     # do stuff
-    @log_function
+    @log_arr_function
     def __array_function__(self, func, types, *args, **kwargs) -> typing.Any:
         return super().__array_function__(func, types, *args, **kwargs)
     
-    @log_function
+    @log_arr_function
     def __array_ufunc__(self, ufunc, method, *inputs, **kwargs):
         args = []
         kwargs_ = {}
