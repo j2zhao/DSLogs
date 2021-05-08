@@ -28,7 +28,7 @@ def get_name(name_node):
         return None, None, True
 
 
-def ast_playing(source_code):
+def ast_annotate(source_code):
     node = ast.parse(source_code)
     temp = []
     for i, n in enumerate(node.body):
@@ -61,4 +61,4 @@ def ast_playing(source_code):
 if __name__ == "__main__":
     with open("./decorated_example.py") as file:
         source_code = file.read()
-    ast_playing(source_code)
+    ast_annotate(source_code)
